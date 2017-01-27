@@ -1,0 +1,6 @@
+/bin/
+/bower_components/
+/etc/
+/node*
+/target/
+.DS_Store
