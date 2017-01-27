@@ -306,6 +306,6 @@
                 </executions>
             </plugin>			
 		</plugins>
-		<finalName>sodaTransferWeb</finalName>
+		<finalName>tz-spring-angular</finalName>
 	</build>
 </project>
