@@ -5,7 +5,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -50,16 +49,4 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         resource.setDefaultEncoding("UTF-8");
         return resource;
     }
-    
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//      registry.addMapping("/**")
-//      .allowedOrigins("http://localhost", "http://localhost:8000")
-//      .allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT")
-//      .allowedHeaders("application/json;charset=utf-8", "text/json;charset=utf-8")
-//      .exposedHeaders("header1", "header2")
-//      .allowCredentials(false).maxAge(3600);
-//      registry.addMapping("/resources/**")
-//      .allowedOrigins("http://localhost", "http://localhost:8000");
-//    }    
 }

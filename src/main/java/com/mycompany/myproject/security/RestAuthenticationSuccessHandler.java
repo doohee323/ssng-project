@@ -26,6 +26,13 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
                                         Authentication authentication)
             throws ServletException, IOException {
         User user = userService.findByLogin(authentication.getName());
+        
+        // allow cors 
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        
         SecurityUtils.sendResponse(response, HttpServletResponse.SC_OK, user);
     }
 }

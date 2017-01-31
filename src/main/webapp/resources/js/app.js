@@ -148,10 +148,5 @@ myapp.run(function ($rootScope, $location, $http, AuthSharedService, Session, co
     // Get already authenticated user account
     AuthSharedService.getAccount();
 
-
 });
-
-
-
-
 

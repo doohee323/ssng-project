@@ -1,20 +1,24 @@
 package com.mycompany.myproject.web.controller;
 
-import com.mycompany.myproject.persist.entity.Token;
-import com.mycompany.myproject.persist.entity.User;
-import com.mycompany.myproject.persist.repo.TokenRepo;
-import com.mycompany.myproject.persist.repo.UserRepo;
-import com.mycompany.myproject.security.SecurityUtils;
-import io.swagger.annotations.Api;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.mycompany.myproject.persist.entity.Token;
+import com.mycompany.myproject.persist.entity.User;
+import com.mycompany.myproject.persist.repo.TokenRepo;
+import com.mycompany.myproject.persist.repo.UserRepo;
+import com.mycompany.myproject.security.SecurityUtils;
 
+import io.swagger.annotations.Api;
+
+@CrossOrigin(origins = "http://localhost:8000")
 @RestController
 @Api(description = "Users management API")
 public class SeurityController {
@@ -34,7 +38,6 @@ public class SeurityController {
         user.setPassword(null);
         return user;
     }
-
 
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/security/tokens", method = RequestMethod.GET)

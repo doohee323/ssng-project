@@ -7,6 +7,4 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.mycompany.myproject.service")
 public class ServiceConfig {
    
-     
-
 }
