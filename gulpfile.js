@@ -109,3 +109,9 @@ gulp.task('copyFonts', function () {
 gulp.task('default', function () {
     runSequence('clean', 'lib-js-files', 'lib-css-files', 'copyFonts', "index");
 });
+
+var webserver = require('gulp-webserver');
+gulp.task('server', function () {
+    return gulp.src('src/main/webapp' + "/")
+        .pipe(webserver())
+});

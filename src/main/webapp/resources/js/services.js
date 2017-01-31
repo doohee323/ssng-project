@@ -24,29 +24,31 @@ myapp.service('Session', function () {
 });
 
 
-myapp.service('AuthSharedService', function ($rootScope, $http, $resource, authService, Session) {
+myapp.service('AuthSharedService', function ($rootScope, $http, $resource, authService, config, Session) {
     return {
         login: function (userName, password, rememberMe) {
-            var config = {
+            var property = {
                 ignoreAuthModule: 'ignoreAuthModule',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             };
-            $http.post('authenticate', $.param({
+            debugger;
+            $http.post(config.domain + 'authenticate', $.param({
                 username: userName,
                 password: password,
                 rememberme: rememberMe
-            }), config)
-                .success(function (data, status, headers, config) {
+            }), property)
+                .success(function (data, status, headers, property) {
                     authService.loginConfirmed(data);
                 })
-                .error(function (data, status, headers, config) {
+                .error(function (data, status, headers, property) {
                     $rootScope.authenticationError = true;
                     Session.invalidate();
                 });
         },
         getAccount: function () {
             $rootScope.loadingAccount = true;
-            $http.get('security/account')
+            debugger;
+            $http.get(config.domain + 'security/account')
                 .then(function (response) {
                     authService.loginConfirmed(response.data);
                 });
@@ -82,7 +84,8 @@ myapp.service('AuthSharedService', function ($rootScope, $http, $resource, authS
 myapp.service('HomeService', function ($log, $resource) {
     return {
         getTechno: function () {
-            var userResource = $resource('resources/json/techno.json', {}, {
+            debugger;
+            var userResource = $resource(config.domain + 'resources/json/techno.json', {}, {
                 query: {method: 'GET', params: {}, isArray: true}
             });
             return userResource.query();
@@ -94,7 +97,8 @@ myapp.service('HomeService', function ($log, $resource) {
 myapp.service('UsersService', function ($log, $resource) {
     return {
         getAll: function () {
-            var userResource = $resource('users', {}, {
+            debugger;
+            var userResource = $resource(config.domain + 'users', {}, {
                 query: {method: 'GET', params: {}, isArray: true}
             });
             return userResource.query();
@@ -106,7 +110,8 @@ myapp.service('UsersService', function ($log, $resource) {
 myapp.service('TokensService', function ($log, $resource) {
     return {
         getAll: function () {
-            var tokensResource = $resource('security/tokens', {}, {
+            debugger;
+            var tokensResource = $resource(config.domain + 'security/tokens', {}, {
                 query: {method: 'GET', params: {}, isArray: true}
             });
             return tokensResource.query();

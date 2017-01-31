@@ -3,22 +3,26 @@
 var myapp = angular
     .module('myApp', ['ngResource', 'ngRoute', 'swaggerUi', 'http-auth-interceptor', 'ngAnimate', 'angular-spinkit']);
 
+// for local
+var config = {
+	domain : 'http://localhost:8080/',
+  	userRoles : {
+	    all: '*',
+	    admin: 'admin',
+	    user: 'user'
+	}
+};
 
-myapp.constant('USER_ROLES', {
-    all: '*',
-    admin: 'admin',
-    user: 'user'
-});
+myapp.constant('config', config);
 
-
-myapp.config(function ($routeProvider, USER_ROLES) {
+myapp.config(function ($routeProvider, config) {
 
     $routeProvider.when("/home", {
         templateUrl: "partials/home.html",
         controller: 'HomeController',
         access: {
             loginRequired: true,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [config.userRoles.all]
         }
     }).when('/', {
         redirectTo: '/home'
@@ -27,59 +31,59 @@ myapp.config(function ($routeProvider, USER_ROLES) {
         controller: 'UsersController',
         access: {
             loginRequired: true,
-            authorizedRoles: [USER_ROLES.admin]
+            authorizedRoles: [config.userRoles.admin]
         }
     }).when('/apiDoc', {
         templateUrl: 'partials/apiDoc.html',
         controller: 'ApiDocController',
         access: {
             loginRequired: true,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [config.userRoles.all]
         }
     }).when('/tokens', {
         templateUrl: 'partials/tokens.html',
         controller: 'TokensController',
         access: {
             loginRequired: true,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [config.userRoles.all]
         }
     }).when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'LoginController',
         access: {
             loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [config.userRoles.all]
         }
     }).when('/loading', {
         templateUrl: 'partials/loading.html',
         access: {
             loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [config.userRoles.all]
         }
     }).when("/logout", {
         template: " ",
         controller: "LogoutController",
         access: {
             loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [config.userRoles.all]
         }
     }).when("/error/:code", {
         templateUrl: "partials/error.html",
         controller: "ErrorController",
         access: {
             loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [config.userRoles.all]
         }
     }).otherwise({
         redirectTo: '/error/404',
         access: {
             loginRequired: false,
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [config.userRoles.all]
         }
     });
 });
 
-myapp.run(function ($rootScope, $location, $http, AuthSharedService, Session, USER_ROLES, $q, $timeout) {
+myapp.run(function ($rootScope, $location, $http, AuthSharedService, Session, config, $q, $timeout) {
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
 
